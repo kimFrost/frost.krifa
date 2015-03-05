@@ -1,0 +1,49 @@
+extends ../master_banner
+
+block append head
+
+block append body
+
+block append globalVars
+	- bannerClasses += " banner--320x160";
+
+block append content
+	//include ../blocks/banner
+	script.
+		var sources = [{
+			"file": "./videos/320x1601.mp4"
+		}, {
+			"file": "./videos/320x1602.webm"
+		}];
+
+		//sources.poster = 'http://video-js.zencoder.com/oceans-clip.png';
+
+		var player = Adform.Component.VideoPlayer.create({
+			sources: sources,
+			width: 320,
+			height: 160,
+			loop: true,
+			autoplay: true,
+			muted: false,
+			poster: sources.poster,
+			clicktag: dhtml.getVar('clickTAG', 'http://www.adform.com')
+
+		});
+
+		if (player) {
+			player
+					.addClass('myplayer') // adding custom class for player
+					.on('fullscreen', function(status) {
+						if (status) {
+							// console.log('fullscreen opened');
+						} else {
+							// console.log('fullscreen closed');
+						}
+					});
+
+			document.body.innerHTML += player;
+		} else {
+			console.log('HTML5 video not supported');
+			document.body.insertBefore(Adform.lib.html('<img src="' + poster + '" width="320" class="myplayer" />'), document.body.firstChild);
+		}
+

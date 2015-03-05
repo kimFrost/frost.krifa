@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="da"><head><title>Krifa</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>.myplayer {
+	position: absolute;
+	left: 50%;
+	margin-left: -150px;
+}
+.myplayer.adform-video-full-screen-on {
+	left: 0;
+	top: 0;
+	margin-left: 0;
+}
+.adform-video-play-pause,
+.adform-video-rewind,
+.adform-video-stop,
+.adform-video-seek-bar,
+.adform-video-sound,
+.adform-video-full-screen {
+	display: none;
+}
+html,
+body {
+	position: relative;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+.logo {
+	background-image: url('./images/graphic/krifa-logo.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: 50% 0;
+	position: absolute;
+	z-index: 10;
+	top: 10px;
+	right: 10px;
+	width: 15%;
+	height: 100%;
+	height: calc(100% - 20px);
+}</style></head><body><script>var preloadQueue = [
+	'VideoPlayer'
+];
+document.write('<script src="' + (window.API_URL || 'http://s1.adform.net/banners/scripts/rmb/Adform.DHTML.js?bv=' + Math.random()) + '"><\/script>');
+</script><section class="banner"><!--include ../blocks/banner--><script>var sources = [{
+	"file": "./videos/320x501.mp4"
+}, {
+	"file": "./videos/320x501.webm"
+}];
+
+//sources.poster = 'http://video-js.zencoder.com/oceans-clip.png';
+
+var player = Adform.Component.VideoPlayer.create({
+	sources: sources,
+	width: 320,
+	height: 50,
+	loop: true,
+	autoplay: true,
+	muted: false,
+	poster: sources.poster,
+	clicktag: dhtml.getVar('clickTAG', 'http://www.adform.com')
+
+});
+
+if (player) {
+	player
+			.addClass('myplayer') // adding custom class for player
+			.on('fullscreen', function(status) {
+				if (status) {
+					// console.log('fullscreen opened');
+				} else {
+					// console.log('fullscreen closed');
+				}
+			});
+
+	document.body.innerHTML += player;
+} else {
+	console.log('HTML5 video not supported');
+	document.body.insertBefore(Adform.lib.html('<img src="' + poster + '" width="320" class="myplayer" />'), document.body.firstChild);
+}</script></section><div class="logo"></div><!--script(src='./assets/scripts/main.js')--><!--script(src='./scripts/main.js')--></body></html>
